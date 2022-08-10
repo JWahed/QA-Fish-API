@@ -61,7 +61,7 @@ public class FishController {
             quantity == null && quantity > 0 &&
             price == null && price > 0) {
 
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         Optional<Fish> updatedfish = fishService.updateFish(id, name, dateCaught, quantity, price);
