@@ -29,13 +29,13 @@ public class FishService {
     public void addFish(Fish fish) {
         fishRepository.save(fish);
     }
-    
+
 
     public Optional<Fish> updateFish(Long id,
-                           String name,
-                           String dateCaught,
-                           Integer quantity,
-                           Double price) {
+                                     String name,
+                                     String dateCaught,
+                                     Integer quantity,
+                                     Double price) {
 
         Optional<Fish> fish = fishRepository.findById(id);
         fish.ifPresent(f -> {
