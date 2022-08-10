@@ -30,25 +30,23 @@ public class FishService {
         fishRepository.save(fish);
     }
 
-    private Fish grabFish(Long id) throws NullPointerException {
-        Fish f = fishRepository.findById(id)
-                .orElseThrow(() -> {
-                    throw new NullPointerException();
-                });
-        return f;
-    }
+//    private Fish grabFish(Long id) throws FishNotFound {
+//        Fish f = fishRepository.findById(id)
+//                .orElseThrow(() -> {
+//                    throw new FishNotFound;
+//                });
+//        return f;
+//    }
 
-    public Fish updateFish(Long id,
+    public Optional<Fish> updateFish(Long id,
                            String name,
                            String dateCaught,
                            Integer quantity,
-                           Double price)
-                            throws NullPointerException {
+                           Double price) {
 
-        Fish f = grabFish(id);
-
-        try {
-
+        Optional<Fish> fish = fishRepository.findById(id);
+        Fish result = new Fish();
+        fish.ifPresent(f -> {
             if (name != null && !name.isBlank()) {
                 f.setName(name);
             }
@@ -62,22 +60,13 @@ public class FishService {
                 f.setPrice(price);
             }
             fishRepository.save(f);
-
-        } catch (NullPointerException e) {
-            System.out.println("Fish with id " + id + " not found");
-        }
-
-        return f;
+        });
+        return fish;
     }
 
-    public void removeFish(Long id) {
+    public Boolean removeFish(Long id) {
 
-        try {
-            Fish f = grabFish(id);
-            fishRepository.delete(f);
-
-        } catch (NullPointerException e) {
-            System.out.println("Fish with id " + id + " not found");
-        }
+        fishRepository.deleteById(id);
+        return !fishRepository.existsById(id);
     }
 }
