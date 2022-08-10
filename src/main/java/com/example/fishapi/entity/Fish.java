@@ -18,10 +18,10 @@ public class Fish {
     private Long id;
     private String name;
     private LocalDate dateCaught;
-    private int quantity;
-    private double price;
+    private Integer quantity;
+    private Double price;
 
-    public Fish(String name, LocalDate dateCaught, int quantity, double price) {
+    public Fish(String name, LocalDate dateCaught, Integer quantity, Double price) {
         this.name = name;
         this.dateCaught = dateCaught;
         this.quantity = quantity;
