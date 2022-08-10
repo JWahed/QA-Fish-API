@@ -50,7 +50,7 @@ public class FishController {
     }
 
     @PatchMapping("/patch/{id}")
-    public ResponseEntity<Fish> updateFish(@PathVariable Long id,
+    public ResponseEntity<Optional> updateFish(@PathVariable Long id,
                                            @PathParam("name") String name,
                                            @PathParam("dateCaught") String dateCaught,
                                            @PathParam("quantity") Integer quantity,
@@ -61,22 +61,22 @@ public class FishController {
             quantity == null && quantity > 0 &&
             price == null && price > 0) {
 
-            return new ResponseEntity<Fish>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
 
-        Fish f = fishService.updateFish(id, name, dateCaught, quantity, price);
+        Optional<Fish> updatedfish = fishService.updateFish(id, name, dateCaught, quantity, price);
 
-        return new ResponseEntity<Fish>(f, HttpStatus.OK);
+        if (updatedfish.isPresent()) {
+            return new ResponseEntity<Optional>(updatedfish, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Optional>(updatedfish, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteFish(@PathVariable Long id) {
 
-        fishService.removeFish(id);
-        Optional<Fish> f = fishService.getFishById(id);
-        return f.isPresent() ?
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(fishService.removeFish(id) ? HttpStatus.OK  : HttpStatus.INTERNAL_SERVER_ERROR );
+
     }
 }
