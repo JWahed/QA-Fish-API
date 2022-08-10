@@ -45,7 +45,6 @@ public class FishService {
                            Double price) {
 
         Optional<Fish> fish = fishRepository.findById(id);
-        Fish result = new Fish();
         fish.ifPresent(f -> {
             if (name != null && !name.isBlank()) {
                 f.setName(name);
