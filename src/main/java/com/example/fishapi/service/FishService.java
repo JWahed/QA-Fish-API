@@ -29,14 +29,7 @@ public class FishService {
     public void addFish(Fish fish) {
         fishRepository.save(fish);
     }
-
-//    private Fish grabFish(Long id) throws FishNotFound {
-//        Fish f = fishRepository.findById(id)
-//                .orElseThrow(() -> {
-//                    throw new FishNotFound;
-//                });
-//        return f;
-//    }
+    
 
     public Optional<Fish> updateFish(Long id,
                            String name,
