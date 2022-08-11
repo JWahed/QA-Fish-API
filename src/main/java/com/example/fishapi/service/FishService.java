@@ -58,7 +58,12 @@ public class FishService {
 
     public Boolean removeFish(Long id) {
 
-        fishRepository.deleteById(id);
-        return !fishRepository.existsById(id);
+        Boolean b = fishRepository.existsById(id);
+
+        if (b) {
+            fishRepository.deleteById(id);
+        }
+
+        return b;
     }
 }
