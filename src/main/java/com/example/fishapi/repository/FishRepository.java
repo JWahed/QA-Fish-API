@@ -11,7 +11,7 @@ import java.util.List;
 public interface FishRepository extends JpaRepository<Fish, Long> {
 
     List<Fish> findFishByName(String name);
-    List<Fish> findAllFishByPrice(double price);
+    List<Fish> findAllFishByPrice(Double price);
 
     @Query("Select f from Fish f WHERE f.quantity = ?1 and f.price = ?2")
     List<Fish> findAllFishByQuantityAndPrice(Integer quantity, Double price);
