@@ -1,4 +1,4 @@
-package com.example.fishapi.controller;
+package com.example.fishapi.integration;
 
 import com.example.fishapi.entity.Fish;
 import com.example.fishapi.service.FishService;
@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 
-@RequestMapping("/api/v1/fish")
 @RestController
 public class FishController {
 
@@ -50,17 +49,17 @@ public class FishController {
 
     @PatchMapping("/patch/{id}")
     public ResponseEntity<Optional> updateFish(@PathVariable Long id,
-                                           @PathParam("name") String name,
-                                           @PathParam("dateCaught") String dateCaught,
-                                           @PathParam("quantity") Integer quantity,
-                                           @PathParam("price") Double price) {
+                                               @PathParam("name") String name,
+                                               @PathParam("dateCaught") String dateCaught,
+                                               @PathParam("quantity") Integer quantity,
+                                               @PathParam("price") Double price) {
 
-        if (name == null && name.isBlank() &&
-            dateCaught == null && dateCaught.isBlank() &&
-            quantity == null && quantity > 0 &&
-            price == null && price > 0) {
+        if ((name == null || name.isBlank()) &&
+            (dateCaught == null || dateCaught.isBlank()) &&
+            (quantity == null || quantity > 0) &&
+            (price == null || price > 0)) {
 
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
         Optional<Fish> updatedfish = fishService.updateFish(id, name, dateCaught, quantity, price);
@@ -75,7 +74,7 @@ public class FishController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteFish(@PathVariable Long id) {
 
-        return new ResponseEntity(fishService.removeFish(id) ? HttpStatus.OK  : HttpStatus.INTERNAL_SERVER_ERROR );
+        return new ResponseEntity(fishService.removeFish(id) ? HttpStatus.OK  : HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 }
