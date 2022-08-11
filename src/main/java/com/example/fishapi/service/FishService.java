@@ -22,6 +22,11 @@ public class FishService {
     public List<Fish> getAllFishes() {
         return fishRepository.findAll();
     }
+
+    public List<Fish> getFishByName(String name) {
+        return fishRepository.findFishByName(name);
+    }
+
     public Optional<Fish> getFishById(Long id) {
         return fishRepository.findById(id);
     }
