@@ -30,12 +30,19 @@ public class FishController {
         return new ResponseEntity<List>(fishService.getAllFishes(), HttpStatus.OK);
     }
 
+    @GetMapping("/get{name}")
+    public ResponseEntity<List> getFishes(@PathVariable String name) {
+
+        return new ResponseEntity<List>(fishService.getFishByName(name), HttpStatus.OK);
+    }
+
     @GetMapping("/get/{id}")
     public ResponseEntity<Fish> getFish(@PathVariable Long id) {
 
         Optional<Fish> f = fishService.getFishById(id);
         return f.isPresent() ? ResponseEntity.ok(f.get()) : ResponseEntity.of(f);
     }
+
 
     @PostMapping("/post")
     public ResponseEntity<Fish> createFish(@RequestBody Fish fish) {
@@ -75,6 +82,5 @@ public class FishController {
     public ResponseEntity deleteFish(@PathVariable Long id) {
 
         return new ResponseEntity(fishService.removeFish(id) ? HttpStatus.OK  : HttpStatus.INTERNAL_SERVER_ERROR);
-
     }
 }
