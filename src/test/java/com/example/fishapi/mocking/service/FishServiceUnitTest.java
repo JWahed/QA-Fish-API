@@ -85,6 +85,24 @@ public class FishServiceUnitTest {
     }
 
     @Test
+    void testAddFish() {
+
+        final String name = "tuna";
+        final LocalDate dateCaught = LocalDate.of(2021, 12,29);
+        final Integer quantity = 40;
+        final Double price = 19.99;
+
+        Fish expected = new Fish(name, dateCaught, quantity, price);
+
+        Mockito.when(fishRepository.save(expected))
+                .thenReturn(new Fish(1L, name, dateCaught, quantity, price));
+
+        Fish actual = fishService.addFish(expected);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void testUpdateFish() {
 
         final Long id = 1L;
