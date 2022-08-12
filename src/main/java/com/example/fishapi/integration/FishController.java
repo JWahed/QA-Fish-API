@@ -50,8 +50,8 @@ public class FishController {
         if (fish == null) {
             return new ResponseEntity<Fish>(HttpStatus.BAD_REQUEST);
         }
-        fishService.addFish(fish);
-        return new ResponseEntity<Fish>(fish, HttpStatus.CREATED);
+        Fish f = fishService.addFish(fish);
+        return new ResponseEntity<Fish>(f, HttpStatus.CREATED);
     }
 
     @PatchMapping("/patch/{id}")
