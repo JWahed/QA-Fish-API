@@ -31,8 +31,9 @@ public class FishService {
         return fishRepository.findById(id);
     }
 
-    public void addFish(Fish fish) {
+    public Fish addFish(Fish fish) {
         fishRepository.save(fish);
+        return fish;
     }
 
 
